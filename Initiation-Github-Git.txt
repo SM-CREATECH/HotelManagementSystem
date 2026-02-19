@@ -1,0 +1,59 @@
+Git est un logiciel/outil permettant de contrôler la ou les versions d'un projet informatique.
+
+Un repository(ou dépôt en français) est un espace qui contient l'ensemble des fichiers du projet. Il existe plusieurs sites pour créer un facilement et gratuitement, l'un des plus connus c'est le site GitHub.
+
+Allez donc créer un compte sur le site GitHub.
+
+Dans Git Bash (MINGW64), le mode bracketed paste peut parfois ajouter : ^[[200~
+au début d’un texte collé.
+Ça arrive surtout quand on copie depuis : un navigateur, WhatsApp Web, certains éditeurs
+
+Désactiver le bracketed paste (avant de collé du texte)
+Dans Git Bash : bind 'set enable-bracketed-paste off'
+
+Lien pour accéder à l'espace (au dépôt) :
+https://github.com/SM-CREATECH/HotelManagementSystem.git
+
+Dans Git une branche ne peut vraiment exister que s’il y a au moins un commit.
+
+Créer une nouvelle branche :
+    git switch -c nom_de_la_branche
+
+Changer de branche :
+    git switch nom_de_la_branche
+
+Supprimer une branche :
+Locale :
+    git branch -d nom_de_la_branche
+Distante :
+    git push origin --delete nom_de_la_branche
+
+Mettre à jour ton projet :
+    git pull origin main
+
+Télécharger sans fusionner :
+    git fetch
+
+Ajouter les fichiers modifiés :
+    git add .
+ou fichier spécifique :
+    git add nom_du_fichier
+
+Faire un commit :
+    git commit -m "Ajouter_un_message_descriptif_du_commit"
+
+Envoyer ton travail sur GitHub :
+    git push origin nom_de_la_branche
+
+Annuler des changements :
+    git restore nom_du_fichier
+
+Créer une copie du dépôt en local (première fois) :
+    1- Clique droit sur le bureau (ou n'importe où)
+    2- Open Git Bash Here
+    3- git clone lien_du_dépôt
+
+Ajouter un fichier dans le dossier et l'envoyer sur GitHub :
+    1- Ajouter d'abord le fichier dans le dossier correspondant au dépôt en local
+    2- cd HotelManagementSystem
+    3- git add nom_du_fichier
