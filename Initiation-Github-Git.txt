@@ -16,13 +16,6 @@ https://github.com/SM-CREATECH/HotelManagementSystem.git
 
 Dans Git une branche ne peut vraiment exister que s’il y a au moins un commit.
 
-Configure ton identité globale :
-    git config --global user.name "SM CREATECH"
-    git config --global user.email "thermidorschilomike9@gmail.com"
-
-Vérifie que c’est bien enregistré :
-    git config --global --list
-
 Créer une nouvelle branche :
     git switch -c nom_de_la_branche
 
@@ -50,7 +43,7 @@ Faire un commit :
     git commit -m "Ajouter_un_message_descriptif_du_commit"
 
 Envoyer ton travail sur GitHub :
-    git push -u origin nom_de_la_branche
+    git push origin nom_de_la_branche
 
 Annuler des changements :
     git restore nom_du_fichier

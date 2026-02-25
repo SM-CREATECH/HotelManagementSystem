@@ -20,24 +20,35 @@ Public Class FormAdminAuth
                 "WHERE RoleName = 'Administrateur'"
 
             Using cmd As New MySqlCommand(query, con)
-
                 Dim result = cmd.ExecuteScalar()
 
-                If result IsNot Nothing Then
+                If TxtAdminPassword.Text.Trim() = "" Then
+                    MessageBox.Show("Remplissez correctement le champ.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
+                    TxtAdminPassword.Clear()
+                    TxtAdminPassword.Focus()
+                    Exit Sub
+                End If
 
+                If result IsNot Nothing Then
                     Dim hashedPassword As String = result.ToString()
 
                     If BCrypt.Net.BCrypt.Verify(TxtAdminPassword.Text.Trim(), hashedPassword) Then
                         IsAuthorized = True
                         Me.Close()
                     Else
-                        MessageBox.Show("Mot de passe administrateur incorrect.", "Erreur ❌")
+                        MessageBox.Show("Mot de passe administrateur incorrect.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
                         TxtAdminPassword.Clear()
                         TxtAdminPassword.Focus()
                     End If
 
                 Else
-                    MessageBox.Show("Aucun administrateur actif trouvé.", "Erreur ❌")
+                    MessageBox.Show("Aucun administrateur actif trouvé.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
                 End If
 
             End Using

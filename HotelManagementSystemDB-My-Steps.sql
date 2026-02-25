@@ -37,9 +37,23 @@ VALUES ('admin', 'admin123', 1);
 CREATE TABLE Rooms (
     RoomID INT AUTO_INCREMENT PRIMARY KEY,
     RoomNumber VARCHAR(10) NOT NULL UNIQUE,
-    RoomType ENUM('Simple', 'Double', 'Suite') NOT NULL,
+    RoomTypeID INT,
     RoomPrice DECIMAL(10,2) NOT NULL,
-    RoomStatus ENUM('Disponible', 'Occupée', 'En nettoyage') NOT NULL
+    RoomStatusID INT,
+    FOREIGN KEY (RoomTypeID) REFERENCES RoomTypes(RoomTypeID),
+    FOREIGN KEY (RoomStatusID) REFERENCES RoomStatuses(RoomStatusID)
+);
+
+-- TABLE DES TYPES DE CHAMBRES
+CREATE TABLE RoomTypes (
+    RoomTypeID INT AUTO_INCREMENT PRIMARY KEY,
+    RoomTypeName VARCHAR(50) NOT NULL
+);
+
+-- TABLE DES ETATS DE CHAMBRES
+CREATE TABLE RoomStatuses (
+    RoomStatusID INT AUTO_INCREMENT PRIMARY KEY,
+    RoomStatusName VARCHAR(50) NOT NULL
 );
 
 -- TABLE DES CLIENTS
@@ -52,6 +66,12 @@ CREATE TABLE Clients (
     ClientIdentityNumber VARCHAR(50) NOT NULL UNIQUE,
     ClientNationality VARCHAR(50) NOT NULL
 );
+
+ALTER TABLE clients
+ADD ClientFullName VARCHAR(101)
+GENERATED ALWAYS AS (
+    CONCAT(ClientFirstName, ' ', ClientLastName)
+) STORED;
 
 -- TABLE DES RESERVATIONS
 CREATE TABLE Reservations (
@@ -67,6 +87,15 @@ CREATE TABLE Reservations (
     FOREIGN KEY (ReservationClientID) REFERENCES Clients(ClientID),
     FOREIGN KEY (ReservationRoomID) REFERENCES Rooms(RoomID)
 );
+
+CREATE TABLE ReservationStatuses (
+    ReservationStatusID INT AUTO_INCREMENT PRIMARY KEY,
+    ReservationStatusName VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB;
+
+ALTER TABLE reservations
+DROP COLUMN ReservationStatus,
+ADD ReservationStatusID INT;
 
 --TRIGGER POUR CALCUL AUTOMATIQUE DU COUT TOTAL
 DELIMITER $$

@@ -4,7 +4,9 @@ Imports BCrypt.Net
 Public Class FormRegister
     Private Sub FormRegister_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         If UserSession.RoleName <> "Administrateur" Then
-            MessageBox.Show("Accès refusé. Authentification Administrateur requise.", "Sécurité 🔒")
+            MessageBox.Show("Accès refusé. Authentification Administrateur requise.", "Sécurité 🔒",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning)
 
             Dim authForm As New FormAdminAuth()
             authForm.ShowDialog()
@@ -46,22 +48,30 @@ Public Class FormRegister
     Private Sub BtnRegister_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnRegister.Click
         'Validation des champs
         If TxtUsernameRegister.Text.Trim() = "" OrElse TxtPasswordRegister.Text.Trim() = "" OrElse TxtPasswordConfirm.Text.Trim() = "" Then
-            MessageBox.Show("Veuillez remplir tous les champs.", "Erreur ❌")
+            MessageBox.Show("Veuillez remplir tous les champs.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If CmbRole.SelectedIndex = -1 Then
-            MessageBox.Show("Veuillez sélectionner un rôle.", "Erreur ❌")
+            MessageBox.Show("Veuillez sélectionner un rôle.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If TxtPasswordRegister.Text.Length < 6 Then
-            MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères.", "Erreur ❌")
+            MessageBox.Show("Le mot de passe doit contenir au moins 6 caractères.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
             Exit Sub
         End If
 
         If TxtPasswordRegister.Text.Trim() <> TxtPasswordConfirm.Text.Trim() Then
-            MessageBox.Show("Les mots de passe ne correspondent pas.", "Erreur ❌")
+            MessageBox.Show("Les mots de passe ne correspondent pas.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
             TxtPasswordConfirm.Clear()
             TxtPasswordConfirm.Focus()
             Exit Sub
@@ -81,7 +91,9 @@ Public Class FormRegister
                     Dim userExists As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
 
                     If userExists > 0 Then
-                        MessageBox.Show("Ce nom d'utilisateur existe déjà.", "Erreur ❌")
+                        MessageBox.Show("Ce nom d'utilisateur existe déjà.", "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
                         Exit Sub
                     End If
                 End Using
@@ -109,12 +121,15 @@ Public Class FormRegister
                 'Réinitialiser les champs
                 TxtUsernameRegister.Clear()
                 TxtPasswordRegister.Clear()
+                TxtPasswordConfirm.Clear()
                 CmbRole.SelectedIndex = -1
 
                 'Récupérer le rôle sélectionné
                 Dim roleName As String = CmbRole.Text
 
-                MessageBox.Show("Inscription réussie ✅", "Information")
+                MessageBox.Show("Inscription réussie ✅", "Information",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information)
 
                 Select Case roleName
                     Case "Receptionniste"
@@ -125,7 +140,9 @@ Public Class FormRegister
 
                 Me.Close()
             Catch ex As Exception
-                MessageBox.Show(ex.Message, "Erreur ❌")
+                MessageBox.Show(ex.Message, "Erreur ❌",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
             End Try
         End Using
     End Sub
